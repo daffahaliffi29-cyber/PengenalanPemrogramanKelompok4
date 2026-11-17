@@ -13,7 +13,7 @@ Proyek ini merupakan aplikasi console sederhana yang berfokus pada sistem toko b
 - Struktur proyek terpisah berdasarkan fungsi:
   - `include/` untuk header file
   - `src/` untuk implementasi program
-- Dapat dikembangkan menjadi sistem manajemen buku, transaksi, dan admin
+- Dapat dikembangkan menjadi sistem manajemen buku, transaksi, dan admin.
 
 ## Struktur Project
 
