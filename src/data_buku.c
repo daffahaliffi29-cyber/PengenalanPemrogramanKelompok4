@@ -12,11 +12,10 @@ static const Buku DATA_BUKU_AWAL[] = {
     {"BK-009", "Introduction to Algorithms", "Thomas H. Cormen", "Ilmu Komputer", 250, 3, true},
     {"BK-010", "Sapiens: Riwayat Singkat Umat Manusia", "Yuval Noah Harari", "Sejarah", 160, 12, true},
     {"BK-011", "Lima ngewu", "TESTING", "TESTING_test", 5000, 12, true}
-    // Tambahkan BK-011 hingga BK-100 di sini setelah seluruh sistem selesai diuji
 };
 
 int muatDataBukuAwal(Buku katalog[]) {
-    int jumlahAwal = sizeof(DATA_BUKU_AWAL) / sizeof(DATA_BUKU_AWAL[0]);
+    int jumlahAwal = (int)(sizeof(DATA_BUKU_AWAL) / sizeof(DATA_BUKU_AWAL[0]));
     if (jumlahAwal > MAX_BUKU) {
         jumlahAwal = MAX_BUKU;
     }

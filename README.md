@@ -1,37 +1,25 @@
-# Pengenalan Pemrograman Kelompok 4
+# Sistem Informasi & Kasir Toko Buku (Versi Terminal Standar / CLI)
 
-Repository ini berisi proyek pemrograman berbasis bahasa C yang dibuat untuk pembelajaran konsep dasar pemrograman dan pengelolaan program menggunakan struktur modular.
+Program kasir dan manajemen katalog toko buku berbasis bahasa C menggunakan antarmuka terminal standar (`stdio` biasa tanpa TUI dan tanpa fitur QRIS), dengan pembersihan layar otomatis (`cls` / `clear`) setelah setiap aksi.
 
-## Deskripsi
+## Struktur Folder
+- `include/` : Header file (`auth.h`, `buku.h`, `cli.h`, `transaksi.h`)
+- `src/`     : Implementasi kode sumber (`main.c`, `cli.c`, `buku.c`, `data_buku.c`, `transaksi.c`, `auth.c`)
+- `Makefile` : Skrip kompilasi otomatis
 
-Proyek ini merupakan aplikasi console sederhana yang berfokus pada sistem toko buku. Saat ini repository mencakup modul autentikasi login dan utility antarmuka (TUI) untuk menampilkan form dan menu program.
+## Cara Kompilasi & Menjalankan
 
-## Fitur
+### Windows (MinGW / GCC)
+```bash
+gcc -Wall -Wextra -std=c11 -Iinclude src/*.c -o toko_buku.exe
+toko_buku.exe
+```
 
-- Login sistem dengan username dan password default
-- Antarmuka konsol sederhana
-- Struktur proyek terpisah berdasarkan fungsi:
-  - `include/` untuk header file
-  - `src/` untuk implementasi program
-- Dapat dikembangkan menjadi sistem manajemen buku, transaksi, dan admin.
+### Linux / macOS
+```bash
+gcc -Wall -Wextra -std=c11 -Iinclude src/*.c -o toko_buku
+./toko_buku
+```
 
-## Struktur Project
-
-```text
-PengenalanPemrogramanKelompok4/
-├── include/
-│   ├── auth.h
-│   ├── buku.h
-│   ├── main.h
-│   ├── transaksi.h
-│   ├── data_buku.h
-│   └── tuih.h
-├── src/
-│   ├── auth.c
-│   ├── buku.c
-│   ├── main.c
-│   ├── transaksi.c
-│   ├── data_buku.c
-│   └── tuih.c
-└── README.md
-
+## Akun Default Admin
+- **Password Admin**: `Admin123`
