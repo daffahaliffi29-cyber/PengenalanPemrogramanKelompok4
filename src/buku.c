@@ -27,25 +27,6 @@ int cariIndeksByKode(const Buku katalog[], int totalBuku, const char kode[]) {
     return -1;
 }
 
-int cariBukuByJudul(const Buku katalog[], int totalBuku, const char kataKunci[], int hasilIndeks[]) {
-    char kunciKecil[65];
-    char judulKecil[65];
-    int jumlahKetemu = 0;
-
-    ubahKeHurufKecil(kunciKecil, kataKunci);
-
-    for (int i = 0; i < totalBuku; i++) {
-        if (katalog[i].aktif) {
-            ubahKeHurufKecil(judulKecil, katalog[i].judul);
-            if (strstr(judulKecil, kunciKecil) != NULL) {
-                hasilIndeks[jumlahKetemu] = i;
-                jumlahKetemu++;
-            }
-        }
-    }
-    return jumlahKetemu;
-}
-
 bool tambahBukuBaru(Buku katalog[], int *totalBuku, Buku bukuBaru) {
     if (*totalBuku >= MAX_BUKU) {
         return false; // Kapasitas array penuh
