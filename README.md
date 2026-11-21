@@ -1,25 +1,68 @@
-# Sistem Informasi & Kasir Toko Buku (Versi Terminal Standar / CLI)
+# Sistem Informasi & Kasir Toko Buku (CLI)
 
-Program kasir dan manajemen katalog toko buku berbasis bahasa C menggunakan antarmuka terminal standar (`stdio` biasa tanpa TUI dan tanpa fitur QRIS), dengan pembersihan layar otomatis (`cls` / `clear`) setelah setiap aksi.
+Aplikasi konsol kasir dan manajemen katalog toko buku berbasis bahasa C (C11) untuk proyek **Pengenalan Pemrograman — Kelompok 4**. Program ini dibangun dengan arsitektur modular multi-file tanpa library eksternal, dilengkapi validasi input terminal standar (`stdio`) serta pembersihan layar otomatis lintas platform (`cls` pada Windows dan `clear` pada Linux/macOS).
 
-## Struktur Folder
-- `include/` : Header file (`auth.h`, `buku.h`, `cli.h`, `transaksi.h`)
-- `src/`     : Implementasi kode sumber (`main.c`, `cli.c`, `buku.c`, `data_buku.c`, `transaksi.c`, `auth.c`)
-- `Makefile` : Skrip kompilasi otomatis
+## Fitur Utama
+
+### Mode Pembeli
+* **Katalog & Pencarian Buku:** Menampilkan daftar buku aktif beserta harga dan stok, serta pencarian parsial (*case-insensitive*) berdasarkan judul maupun kode buku.
+* **Detail & Keranjang Belanja:** Menampilkan informasi lengkap buku dan sisa stok tersedia setelah dikurangi isi keranjang. Mendukung penggabungan kuantitas item yang sama (*cart merging*), penghapusan item tertentu, dan pengosongan keranjang (maksimal 20 jenis buku per transaksi).
+* **Checkout & Pembayaran Tunai:** Menghitung total tagihan secara otomatis, memvalidasi nominal uang bayar, menghitung kembalian, mengurangi stok katalog, serta mencetak struk transaksi (`TRX-001`, dst.).
+
+### Mode Admin
+* **Autentikasi Terproteksi:** Verifikasi kata sandi admin menggunakan algoritma *hashing* **DJB2** dengan batas maksimal 3 kali percobaan login.
+* **Manajemen Katalog & Stok:** Menambah stok buku (*restock*), menambahkan judul buku baru dengan validasi kode unik (kapasitas hingga 150 judul), serta menghapus buku dari etalase menggunakan metode *soft delete*.
+* **Laporan Penjualan:** Menampilkan jumlah transaksi berhasil, total omzet kotor, dan riwayat seluruh transaksi pada sesi berjalan (hingga 100 transaksi).
+
+## Struktur Direktori
+
+```text
+PengenalanPemrogramanKelompok4/
+├── include/
+│   ├── auth.h          # Deklarasi fungsi hashing DJB2 dan login admin
+│   ├── buku.h          # Struktur data Buku dan prototipe operasi katalog
+│   ├── cli.h           # Deklarasi kontrol layar dan antarmuka terminal
+│   └── transaksi.h     # Struktur data ItemKeranjang, Transaksi, dan checkout
+├── src/
+│   ├── auth.c          # Implementasi autentikasi admin
+│   ├── buku.c          # Implementasi pencarian, tambah, restock, dan hapus buku
+│   ├── cli.c           # Implementasi alur menu Mode Pembeli dan Mode Admin
+│   ├── data_buku.c     # Data awal katalog buku (BK-001 s.d. BK-011)
+│   ├── main.c          # Titik masuk program (menu utama)
+│   └── transaksi.c     # Implementasi keranjang belanja, checkout, dan omzet
+├── Makefile            # Otomatisasi kompilasi proyek
+└── README.md           # Dokumentasi proyek
+```
 
 ## Cara Kompilasi & Menjalankan
 
-### Windows (MinGW / GCC)
+Pastikan kompiler **GCC** (atau MinGW pada Windows) sudah terpasang di sistem.
+
+### Menggunakan Make
+```bash
+make
+./toko_buku
+```
+Untuk menghapus hasil kompilasi:
+```bash
+make clean
+```
+
+### Kompilasi Manual (GCC)
+
+**Windows (Command Prompt / PowerShell):**
 ```bash
 gcc -Wall -Wextra -std=c11 -Iinclude src/*.c -o toko_buku.exe
 toko_buku.exe
 ```
 
-### Linux / macOS
+**Linux / macOS:**
 ```bash
 gcc -Wall -Wextra -std=c11 -Iinclude src/*.c -o toko_buku
 ./toko_buku
 ```
 
-## Akun Default Admin
-- **Password Admin**: `Admin123`
+## Kredensial & Data Uji Default
+
+* **Password Mode Admin:** `Admin123`
+* **Kode Buku Awal:** `BK-001` sampai `BK-011` (contoh: `BK-002` untuk *Clean Code*, `BK-007` untuk *Atomic Habits*).
